@@ -27,7 +27,7 @@ export default function WalletPage() {
   // Extract nested data from API response
   const agent = agentData?.agent || {};
   const wallet = agentData?.wallet || {};
-  const commission = agentData?.commission || {};
+  const commission = agentData?.commissionSummary || agentData?.commission || {};
   const [withdrawAmount, setWithdrawAmount] = useState('');
   const [withdrawals, setWithdrawals] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -134,7 +134,7 @@ export default function WalletPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/80 text-lg mb-1">Available Balance</p>
-                <p className="text-4xl font-bold">₹{wallet?.balance?.toLocaleString() || '0'}</p>
+                <p className="text-4xl font-bold">₹{wallet?.withdrawableAmount?.toLocaleString() || wallet?.balance?.toLocaleString() || '0'}</p>
               </div>
               <Wallet className="w-12 h-12 text-white/30" />
             </div>
@@ -146,7 +146,7 @@ export default function WalletPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-500 text-lg mb-1">Total Earned</p>
-                <p className="text-4xl font-bold text-slate-900">₹{commission?.totalEarned?.toLocaleString() || '0'}</p>
+                <p className="text-4xl font-bold text-slate-900">₹{(commission?.totalEarned || wallet?.totalEarnings || wallet?.lifetimeEarnings || 0).toLocaleString()}</p>
               </div>
               <ArrowDownLeft className="w-12 h-12 text-green-200" />
             </div>
@@ -159,7 +159,7 @@ export default function WalletPage() {
               <div>
                 <p className="text-slate-500 text-lg mb-1">Total Withdrawn</p>
                 <p className="text-4xl font-bold text-blue-600">
-                  ₹{commission?.totalPaid?.toLocaleString() || '0'}
+                  ₹{(commission?.totalPaid || wallet?.totalWithdrawn || 0).toLocaleString()}
                 </p>
               </div>
               <ArrowUpRight className="w-12 h-12 text-blue-200" />

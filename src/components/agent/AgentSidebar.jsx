@@ -15,7 +15,8 @@ import {
   Menu,
   X,
   MapPin,
-  Bell
+  Bell,
+  Banknote
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -26,6 +27,7 @@ const navItems = [
   { href: '/dashboard/qr', label: 'My QR Code', icon: QrCode },
   { href: '/dashboard/bookings', label: 'Bookings', icon: History },
   { href: '/dashboard/commissions', label: 'Commissions', icon: Wallet },
+  { href: '/dashboard/wallet', label: 'Wallet', icon: Banknote },
   { href: '/dashboard/pooling', label: 'Live Pooling', icon: Users },
   { href: '/dashboard/analytics', label: 'Analytics', icon: TrendingUp },
 ];

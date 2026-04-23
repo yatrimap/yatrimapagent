@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useAgent } from '@/context/AgentContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -88,10 +89,18 @@ export default function CommissionsPage() {
             Track all your earnings from bookings and pooling
           </p>
         </div>
-        <Button variant="outline" className="h-14 px-6 text-lg border-2">
-          <Download className="w-5 h-5 mr-2" />
-          Export CSV
-        </Button>
+        <div className="flex gap-3">
+          <Link href="/dashboard/wallet">
+            <Button className="h-14 px-6 text-lg bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-200">
+              <Wallet className="w-5 h-5 mr-2" />
+              Withdraw Funds
+            </Button>
+          </Link>
+          <Button variant="outline" className="h-14 px-6 text-lg border-2">
+            <Download className="w-5 h-5 mr-2" />
+            Export CSV
+          </Button>
+        </div>
       </div>
 
       {/* Summary Cards */}

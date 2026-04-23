@@ -133,15 +133,6 @@ export function AgentHeader() {
 
         {/* Right Side - Actions */}
         <div className="flex items-center gap-3">
-          {/* Quick Stats - Desktop */}
-          <div className="hidden lg:flex items-center gap-4 mr-4">
-            <div className="text-right">
-              <p className="text-xs text-slate-500 font-medium">Today's Earnings</p>
-              <p className="text-lg font-bold text-green-600">+₹1,240</p>
-            </div>
-            <div className="h-10 w-px bg-slate-200" />
-          </div>
-
           {/* Notifications */}
           <DropdownMenu open={showNotifications} onOpenChange={setShowNotifications}>
             <DropdownMenuTrigger asChild>
@@ -197,13 +188,7 @@ export function AgentHeader() {
                   </div>
                 ))}
               </div>
-              <div className="p-3 border-t border-slate-100 text-center">
-                <Link href="/dashboard/notifications">
-                  <Button variant="ghost" className="w-full text-orange-600 font-semibold">
-                    View All Notifications
-                  </Button>
-                </Link>
-              </div>
+              {/* Notification footer removed as it is unimplemented */}
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -214,7 +199,7 @@ export function AgentHeader() {
               className="h-12 px-4 rounded-xl hover:bg-green-50"
             >
               <Wallet className="h-5 w-5 mr-2 text-green-600" />
-              <span className="font-bold text-slate-900">₹{wallet?.balance?.toLocaleString() || '0'}</span>
+              <span className="font-bold text-slate-900">₹{wallet?.withdrawableAmount?.toLocaleString() || wallet?.balance?.toLocaleString() || '0'}</span>
             </Button>
           </Link>
 
@@ -247,19 +232,6 @@ export function AgentHeader() {
                   </div>
                 </div>
               </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="h-12 px-4 cursor-pointer" onClick={() => router.push('/dashboard/profile')}>
-                <User className="w-5 h-5 mr-3 text-slate-500" />
-                <span className="font-medium">My Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="h-12 px-4 cursor-pointer" onClick={() => router.push('/dashboard/settings')}>
-                <Settings className="w-5 h-5 mr-3 text-slate-500" />
-                <span className="font-medium">Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="h-12 px-4 cursor-pointer" onClick={() => router.push('/dashboard/support')}>
-                <HelpCircle className="w-5 h-5 mr-3 text-slate-500" />
-                <span className="font-medium">Help & Support</span>
-              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem 
                 className="h-12 px-4 cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"

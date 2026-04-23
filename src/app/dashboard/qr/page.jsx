@@ -6,11 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Download, 
-  Share2, 
-  Copy, 
-  Check, 
+import {
+  Download,
+  Share2,
+  Copy,
+  Check,
   QrCode,
   Smartphone,
   Printer,
@@ -48,8 +48,8 @@ export default function QRCodePage() {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const yatrimapUrl = 'https://yatrimap.com';
-  const referralLink = `${yatrimapUrl}/ref/${agent?.agentId || ''}`;
+  const yatrimapUrl = 'https://smartqr.yatrimap.com';
+  const referralLink = `${yatrimapUrl}/shop/${agent.city}/${agent?.agentId || ''}`;
 
   useEffect(() => {
     if (agent?.agentId) {
@@ -82,9 +82,9 @@ export default function QRCodePage() {
       const token = localStorage.getItem('agent_token');
       const res = await fetch(`${baseUrl}/agent-dashboard/qr-config`, {
         method: 'PUT',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}` 
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
           displayMode,
@@ -112,7 +112,7 @@ export default function QRCodePage() {
       const params = new URLSearchParams();
       if (serviceType) params.set('serviceType', serviceType);
       if (search) params.set('search', search);
-      
+
       const res = await fetch(`${baseUrl}/agent-dashboard/qr-config/available-items?${params}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -215,7 +215,7 @@ export default function QRCodePage() {
             <p className="text-white/80">Get best prices on Activities, Hotels & Rentals</p>
           </div>
           <CardContent className="p-8 flex flex-col items-center">
-            <div 
+            <div
               ref={qrRef}
               className="p-6 bg-white rounded-3xl shadow-inner border-4 border-orange-100 mb-6"
             >
@@ -232,7 +232,7 @@ export default function QRCodePage() {
                 }}
               />
             </div>
-            
+
             <div className="text-center space-y-2">
               <p className="text-2xl font-bold text-slate-900">{agent?.fullName}</p>
               <p className="text-lg text-slate-500">Agent ID: {agent?.agentId}</p>
@@ -263,14 +263,14 @@ export default function QRCodePage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex gap-3">
-                <Button 
+                <Button
                   onClick={handleDownload}
                   className="flex-1 h-14 text-lg bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 rounded-xl"
                 >
                   <Download className="w-5 h-5 mr-2" />
                   Download QR
                 </Button>
-                <Button 
+                <Button
                   variant="outline"
                   onClick={() => window.print()}
                   className="h-14 px-6 text-lg border-2 rounded-xl"
@@ -280,12 +280,12 @@ export default function QRCodePage() {
               </div>
 
               <div className="relative">
-                <Input 
+                <Input
                   value={referralLink}
                   readOnly
                   className="h-14 pr-24 text-sm bg-slate-50 border-2"
                 />
-                <Button 
+                <Button
                   onClick={handleCopy}
                   variant={copied ? "default" : "secondary"}
                   className="absolute right-2 top-2 h-10"
@@ -295,8 +295,8 @@ export default function QRCodePage() {
                 </Button>
               </div>
 
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full h-14 text-lg border-2 border-green-500 text-green-600 hover:bg-green-50 rounded-xl"
                 onClick={() => {
                   if (navigator.share) {
@@ -317,7 +317,7 @@ export default function QRCodePage() {
           {/* QR Customization */}
           <Card className="border-0 shadow-xl bg-white">
             <CardHeader>
-              <button 
+              <button
                 onClick={() => setShowAdvanced(!showAdvanced)}
                 className="w-full flex items-center justify-between"
               >
@@ -336,11 +336,10 @@ export default function QRCodePage() {
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       onClick={() => setDisplayMode("all")}
-                      className={`p-4 rounded-xl border-2 text-left transition-all ${
-                        displayMode === "all" 
-                          ? "border-orange-500 bg-orange-50" 
-                          : "border-slate-200 hover:border-slate-300"
-                      }`}
+                      className={`p-4 rounded-xl border-2 text-left transition-all ${displayMode === "all"
+                        ? "border-orange-500 bg-orange-50"
+                        : "border-slate-200 hover:border-slate-300"
+                        }`}
                     >
                       <p className="font-bold text-slate-900">Show All</p>
                       <p className="text-sm text-slate-500">All services on YatriMap</p>
@@ -350,11 +349,10 @@ export default function QRCodePage() {
                         setDisplayMode("selected");
                         if (availableItems.length === 0) fetchAvailableItems();
                       }}
-                      className={`p-4 rounded-xl border-2 text-left transition-all ${
-                        displayMode === "selected" 
-                          ? "border-orange-500 bg-orange-50" 
-                          : "border-slate-200 hover:border-slate-300"
-                      }`}
+                      className={`p-4 rounded-xl border-2 text-left transition-all ${displayMode === "selected"
+                        ? "border-orange-500 bg-orange-50"
+                        : "border-slate-200 hover:border-slate-300"
+                        }`}
                     >
                       <p className="font-bold text-slate-900">Custom Selection</p>
                       <p className="text-sm text-slate-500">Choose specific services</p>
@@ -372,11 +370,10 @@ export default function QRCodePage() {
                           <button
                             key={service}
                             onClick={() => toggleService(service)}
-                            className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 transition-all ${
-                              selectedServices.includes(service)
-                                ? `border-orange-500 bg-gradient-to-r ${serviceColors[service]} text-white`
-                                : "border-slate-200 text-slate-600 hover:border-slate-300"
-                            }`}
+                            className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 transition-all ${selectedServices.includes(service)
+                              ? `border-orange-500 bg-gradient-to-r ${serviceColors[service]} text-white`
+                              : "border-slate-200 text-slate-600 hover:border-slate-300"
+                              }`}
                           >
                             {serviceIcons[service]}
                             <span className="font-semibold text-sm">{serviceLabels[service]}</span>
@@ -440,7 +437,7 @@ export default function QRCodePage() {
                             <X className="w-5 h-5 text-slate-500" />
                           </button>
                         </div>
-                        
+
                         <div className="flex gap-2">
                           <div className="relative flex-1">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -483,9 +480,8 @@ export default function QRCodePage() {
                                   key={idx}
                                   onClick={() => !isSelected && addItem(item)}
                                   disabled={isSelected}
-                                  className={`w-full flex items-center justify-between p-3 rounded-xl text-left transition-all ${
-                                    isSelected ? "bg-green-50 border border-green-200" : "bg-white hover:bg-orange-50 border border-slate-100"
-                                  }`}
+                                  className={`w-full flex items-center justify-between p-3 rounded-xl text-left transition-all ${isSelected ? "bg-green-50 border border-green-200" : "bg-white hover:bg-orange-50 border border-slate-100"
+                                    }`}
                                 >
                                   <div className="flex items-center gap-3">
                                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r ${serviceColors[item.serviceType]} text-white text-xs`}>
