@@ -2,6 +2,7 @@
 
 ## What Was Done
 
+
 ### ✅ All Dashboard Functionalities Integrated
 
 Your YatriAgent dashboard now has **complete integration** with the backend API. Here's what's working:
